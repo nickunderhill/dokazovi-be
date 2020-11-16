@@ -1,0 +1,25 @@
+name: 'docker-heroku'
+on:
+  push:
+    branches:
+      - 'develop'
+  pull_request:
+    branches:
+      - 'develop'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build the tagged Docker image
+        run: docker build -f .docker/dokazovi.Dockerfile -t dokazovi .
+      - name: Build, Push and Deploy to Heroku #set the whatever name you want to this step
+        id: heroku
+        uses: snithyanantham/docker-compose-multiple-apps-heroku-deploy@v1.0
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
+          api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
+          app_name: ${{ secrets.HEROKU_APP_NAME }} # you aplication name
+          docker_compose_file: '.docker/docker-compose.heroku.yml'
+          heroku_apps: '[{"imagename":"dokazovi","appname":"cicddokazovi","apptype":"web"}]'
