@@ -22,7 +22,7 @@ class VersionControllerTest {
 	@Test
 	void shouldReturnBuildVersion() throws Exception {
 		String version = String.format("{\"version\":\"%s\"}", buildVersion.getVersion());
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/version1"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/version"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(content().string(version));
 	}
