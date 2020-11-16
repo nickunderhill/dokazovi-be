@@ -2,6 +2,7 @@ package com.softserveinc.dokazovi.service.impl;
 
 import com.softserveinc.dokazovi.dto.post.ImportantPostDTO;
 import com.softserveinc.dokazovi.dto.post.LatestPostDTO;
+import com.softserveinc.dokazovi.entity.PostEntity;
 import com.softserveinc.dokazovi.entity.enumerations.PostStatus;
 import com.softserveinc.dokazovi.mapper.PostMapper;
 import com.softserveinc.dokazovi.repositories.PostRepository;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +31,10 @@ public class PostServiceImpl implements PostService {
 	public Page<ImportantPostDTO> findImportantPosts(Pageable pageable) {
 		return postRepository.findAllByImportantIsTrueAndStatus(PostStatus.PUBLISHED, pageable)
 				.map(postMapper::toImportantPostDTO);
+	}
+
+	@Override
+	public List<PostEntity> findAll(Pageable pageable) {
+		return postRepository.findAll();
 	}
 }
