@@ -38,7 +38,7 @@ public class PostController {
 	}
 
 	@ApiPageable
-	@ApiOperation(value = "Find important posts")
+	@ApiOperation(value = "Find important posts!!!")
 	@GetMapping(IMPORTANT)
 	public ResponseEntity<Page<ImportantPostDTO>> findImportant(
 			@PageableDefault(size = 3, sort = {"createdAt"}, direction = Sort.Direction.DESC) Pageable pageable) {
